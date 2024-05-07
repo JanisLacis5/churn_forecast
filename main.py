@@ -13,24 +13,34 @@ from tensorflow.keras.layers import Dense
 
 
 # this code block will read data
-file_loc = os.path.join("data", "churn.csv") # create a path str to read from
+file_loc = os.path.join("data", "churn.csv")  # create a path str to read from
 df = pd.read_csv(file_loc)
-X = df.iloc[:, 3:-1].values # this snippet allows selection of all rows and columns from index 3 to -1
-y = df.iloc[:, -1].values # same intention columns(0, -1)
+X = df.iloc[
+    :, 3:-1
+].values  # this snippet allows selection of all rows and columns from index 3 to -1
+y = df.iloc[:, -1].values  # same intention columns(0, -1)
 
 # encode GENDER col
-label_enc = LabelEncoder() #  simply encodes Female -> 0 Males -> 1
-X[:, 2] = label_enc.fit_transform(X[:, 2]) # the gender column is indicated by index 2 (3 col)
+label_enc = LabelEncoder()  #  simply encodes Female -> 0 Males -> 1
+X[:, 2] = label_enc.fit_transform(
+    X[:, 2]
+)  # the gender column is indicated by index 2 (3 col)
 
 # encode COUNTRY col
-ct = ColumnTransformer([("one_hot_encoder", OneHotEncoder(), [1])], remainder="passthrough")
+ct = ColumnTransformer(
+    [("one_hot_encoder", OneHotEncoder(), [1])], remainder="passthrough"
+)
 X = np.array(ct.fit_transform(X))
 
 # standard ml test-train split to create training and test data with a 80-20 split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2) # control param -> test_size: float = [0, 1]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2
+)  # control param -> test_size: float = [0, 1]
 
 # scale data
-scaler = StandardScaler(with_mean=True, with_std=True) # with_mean -> L1 normalization without l2
+scaler = StandardScaler(
+    with_mean=True, with_std=True
+)  # with_mean -> L1 normalization without L2
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 

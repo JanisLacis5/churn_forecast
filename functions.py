@@ -1,13 +1,12 @@
 import numpy as np
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
 
 # X -> numpy array of data
 # encoder -> data encoder, for example, LabelEncoder, OneHotEncoder etc.
 # cols -> list of columns to  encode
-def encode_data(X, *args, encoder, cols=[], col_range=()):
+def encode_data(X, *args, encoder, cols=[]):
     X = X.copy()
     if isinstance(encoder, OneHotEncoder):
         transformer = ColumnTransformer(
