@@ -27,3 +27,8 @@ source: https://github.com/pvdlg/conventional-commit-types/blob/master/README.md
 ```
 git commit -m "[Commit Type]: [Desctription]"
 ```
+
+### Example
+```
+git commit -m "docs: update README file"
+```
